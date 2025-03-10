@@ -55,7 +55,7 @@ async function updateStakingData(index: number) {
     const formattedTVL = generateRandomTVL();
 
     // Log before upsert for debugging
-    console.log(`Attempting to upsert ${nameProject} with staking address: ${staking}`);
+    console.log(`Attempting to upsert ${nameProject} with staking address: ${staking} and token address: ${token}`);
 
     await prisma.staking.upsert({
       where: { addressStaking: staking },  // Using staking address as the unique identifier
