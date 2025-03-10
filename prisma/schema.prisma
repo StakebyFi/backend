@@ -20,8 +20,8 @@ model Staking {
   nameToken      String
   nameProject    String
   chain          String
-  apy            Float
-  tvl            Float
+  apy            Int
+  tvl            Int
   stablecoin     Boolean
   categories     String[]
   logo           String

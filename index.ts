@@ -33,14 +33,12 @@ const MOCK_TOKENS = [
 
 const LOGO = "https://s2.coinmarketcap.com/static/img/coins/200x200/6892.png"
 
-// Function to generate random APY between 3% and 15%
 function generateRandomAPY(): number {
-  return Number((Math.random() * 12 + 3).toFixed(2));
+  return Math.floor(Math.random() * 13 + 3);
 }
 
-// Function to generate random TVL between $100,000 and $10,000,000
 function generateRandomTVL(): number {
-  return Number((Math.random() * 9900000 + 100000).toFixed(2));
+  return Math.floor(Math.random() * 9900000 + 100000);
 }
 
 async function updateStakingData(index: number) {
