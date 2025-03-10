@@ -15,17 +15,17 @@ app.use(express.json());
 
 const MOCK_TOKENS = [
   {
-    "token": "",
+    "token": "erd1qqqqqqqqqqqqqpgq2qjlpjjr33a4hdl60ll7300apszjm8c9c8rsg5nymf",
     "staking": "erd1qqqqqqqqqqqqqpgq2qjlpjjr33a4hdl60ll7300apszjm8c9c8rsg5nymf",
     "nameProject": "AAVE"
   },
   {
-    "token": "",
+    "token": "erd1qqqqqqqqqqqqqpgq08dhtprrqlv3jnvankzfmnw4gjyuu23jc8rsq9n5tn",
     "staking": "erd1qqqqqqqqqqqqqpgq08dhtprrqlv3jnvankzfmnw4gjyuu23jc8rsq9n5tn",
     "nameProject": "Compound"
   },
   {
-    "token": "",
+    "token": "erd1qqqqqqqqqqqqqpgqmul7urzjexlupmxuztcsjx4nwu6v07g5c8rsug5amm",
     "staking": "erd1qqqqqqqqqqqqqpgqmul7urzjexlupmxuztcsjx4nwu6v07g5c8rsug5amm",
     "nameProject": "USDXMoney"
   }
