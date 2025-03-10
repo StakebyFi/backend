@@ -15,7 +15,7 @@ datasource db {
 
 model Staking {
   idProtocol     String   @unique
-  addressToken   String   @unique
+  addressToken   String   
   addressStaking String   @unique
   nameToken      String
   nameProject    String

@@ -56,8 +56,11 @@ async function updateStakingData(index: number) {
     const formattedAPY = generateRandomAPY();
     const formattedTVL = generateRandomTVL();
 
+    // Log before upsert for debugging
+    console.log(`Attempting to upsert ${nameProject} with staking address: ${staking}`);
+
     await prisma.staking.upsert({
-      where: { addressToken: token },
+      where: { addressStaking: staking },  // Using staking address as the unique identifier
       update: {
         tvl: formattedTVL,
         apy: formattedAPY,
@@ -81,6 +84,7 @@ async function updateStakingData(index: number) {
     console.log(`Updated staking data for ${nameProject} with APY: ${formattedAPY}% and TVL: $${formattedTVL.toLocaleString()}`);
   } catch (error) {
     console.error(`Error updating staking data for index ${index}:`, error);
+    console.error(error);
   }
 }
 
@@ -99,7 +103,7 @@ const getStakingByIdProtocol = async (req: any, res: any) => {
       where: { idProtocol: req.params.idProtocol },
     });
 
-    if (!data) {
+    if (data.length === 0) {
       return res.status(404).json({ error: "Staking data not found" });
     }
 
@@ -112,7 +116,7 @@ const getStakingByIdProtocol = async (req: any, res: any) => {
 const getStakingByAddress = async (req: any, res: any) => {
   try {
     const data = await prisma.staking.findUnique({
-      where: { addressToken: req.params.address },
+      where: { addressStaking: req.params.address },  // Updated to use staking address
     });
 
     if (!data) {
@@ -127,14 +131,25 @@ const getStakingByAddress = async (req: any, res: any) => {
 
 const updateStaking = async (req: Request, res: Response) => {
   try {
+    console.log("Starting update of all staking data...");
+    console.log(`Found ${MOCK_TOKENS.length} tokens to update`);
+    
     const updatePromises = MOCK_TOKENS.map((_, index) => 
       updateStakingData(index)
     );
 
     await Promise.all(updatePromises);
 
-    res.json({ message: "All staking data updated successfully" });
+    const count = await prisma.staking.count();
+    console.log(`Database now has ${count} staking records`);
+
+    res.json({ 
+      message: "All staking data updated successfully",
+      count: count,
+      tokens: MOCK_TOKENS.map(token => token.nameProject)
+    });
   } catch (error) {
+    console.error("Failed to update staking data:", error);
     res.status(500).json({ error: "Failed to update staking data" });
   }
 };
